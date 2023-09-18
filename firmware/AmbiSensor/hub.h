@@ -8,8 +8,8 @@
 #include <GyverHub.h>
 GyverHub hub("MyDevices", "AmbiSensor", "");
 
-#include "multi_veml.h"
-MultiVeml6040 rgb;
+#include "multi_tcs.h"
+MultiTcs34725 rgb;
 
 uint8_t matrix[8][2] = {
     {1, 2},
@@ -79,7 +79,7 @@ void show_ambi() {
 
         CRGB colors[8];
         for (uint8_t i = 0; i < 8; i++) {
-            
+            rgb.get(i).readSensorData();
             int r = rgb.get(i).getRed() * data.ampli * data.lr;
             int g = rgb.get(i).getGreen() * data.ampli * data.lg;
             int b = rgb.get(i).getBlue() * data.ampli * data.lb;
